@@ -85,7 +85,7 @@ CREATE TABLE `yoshop_store_access` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`access_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10001 DEFAULT CHARSET=utf8 COMMENT='商家用户权限表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商家用户权限表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +253,7 @@ CREATE TABLE `yoshop_user_record` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `user_info` varchar(255) NOT NULL DEFAULT '0' COMMENT '用户信息',
   `ip` varchar(200) NOT NULL DEFAULT '0' COMMENT '解析ip',
-  `url` varchar(255) DEFAULT NULL COMMENT '解析链接',
+  `url` varchar(500) DEFAULT NULL COMMENT '解析链接',
   `state` int(11) NOT NULL DEFAULT '0' COMMENT '解析状态（0=失败 1=成功）',
   `wxapp_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '小程序id',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
@@ -287,7 +287,7 @@ CREATE TABLE `yoshop_user_urls` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='域名记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='域名记录表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -296,7 +296,6 @@ CREATE TABLE `yoshop_user_urls` (
 
 LOCK TABLES `yoshop_user_urls` WRITE;
 /*!40000 ALTER TABLE `yoshop_user_urls` DISABLE KEYS */;
-INSERT INTO `yoshop_user_urls` VALUES (1,'https://v3-default.ixigua.com',1,10001,1678533240,1678533240),(2,'https://v9-default.ixigua.com',3,10001,1678628665,1678628711);
 /*!40000 ALTER TABLE `yoshop_user_urls` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,9 +317,12 @@ CREATE TABLE `yoshop_wxapp` (
   `ad_screen` varchar(255) DEFAULT NULL COMMENT '插屏广告id',
   `ad_video` varchar(255) DEFAULT NULL COMMENT '视频广告id',
   `is_recycle` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否回收',
+  `is_download` tinyint(3) NOT NULL DEFAULT '0' COMMENT '限制用户下载',
   `money_login` int(11) NOT NULL DEFAULT '0' COMMENT '首次登录奖励金币',
   `is_limit` tinyint(3) NOT NULL DEFAULT '0' COMMENT '是否限制用户解析',
   `is_analysis` tinyint(3) NOT NULL DEFAULT '0' COMMENT '是否使用内置解析接口（0=第三方 1=内置）',
+  `download_video` varchar(255) DEFAULT NULL COMMENT '下载视频接口',
+  `download_image` varchar(255) DEFAULT NULL COMMENT '下载图片接口',
   `is_delete` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
@@ -403,7 +405,7 @@ DROP TABLE IF EXISTS `yoshop_wxapp_help`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `yoshop_wxapp_help` (
   `help_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `title` varchar(255) NOT NULL COMMENT '帮助标题',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '帮助标题',
   `content` text NOT NULL COMMENT '帮助内容',
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序(数字越小越靠前)',
   `wxapp_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '小程序id',
@@ -502,4 +504,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-13 14:49:44
+-- Dump completed on 2023-03-13 17:25:41
