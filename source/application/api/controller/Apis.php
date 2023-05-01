@@ -15,7 +15,7 @@ class Apis extends Controller
 {
 
 
-    public function analysiss($videoUrl)
+    public function analysis($videoUrl)
     {
         try {
             $url = "这里填写接口" . $videoUrl;
@@ -44,18 +44,19 @@ class Apis extends Controller
                 return [
                     "code" => -1,
                     "data" => null,
-                    "msg" => $s['message']
+                    "msg" => "解析失败，不支持该平台"
                 ];
             }
         } catch (Exception $e) {
             return [
                 "code" => -1,
                 "data" => null,
-                "msg" => "解析失败，出错了"
+                "msg" => "解析失败，程序出错了"
             ];
         }
-
     }
+
+
 
 
     /**
