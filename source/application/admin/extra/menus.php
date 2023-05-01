@@ -24,10 +24,6 @@ return [
                 'name' => '回收站',
                 'index' => 'store/recycle'
             ],
-//            [
-//                'name' => '权限管理',
-//                'index' => 'store.access/index'
-//            ]
         ],
     ],
     'setting' => [
