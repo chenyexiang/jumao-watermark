@@ -1,12 +1,12 @@
 module.exports = {
 
-	api_root: 'https://这里填写您的域名/index.php?s=/api/', // api地址
+	api_root: 'https://填写域名/index.php?s=/api/', // api地址
 
 	// 图片下载
-	download_image_url: 'https://这里填写您的域名/image.php?url=',
+	download_image_url: 'https://填写域名/image.php?url=',
 
 	// 视频下载
-	download_video_url: 'https://这里填写您的域名/video.php?url=',
+	download_video_url: 'https://填写域名/video.php?url=',
 	
 	// 这里填写后端对应的小程序id
 	uniacid: '10001',

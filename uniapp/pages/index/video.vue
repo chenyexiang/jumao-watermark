@@ -219,7 +219,7 @@
 				this.none = "domshow"
 				// 1 将远程文件下载到小程序的内存中
 				const downloadTask = uni.downloadFile({
-					url: url,
+					url: url.replace('http://', 'https://'),
 					success: (res) => {
 						// 2 成功下载后而且状态码为200时将视频保存到本地系统
 						if (res.statusCode === 200) {
@@ -243,9 +243,7 @@
 					},
 					fail: (err) => {
 						if (err.errMsg.includes("fail url not in domain list")) {
-
 							console.log("记录域名", url.replace(/^https?:\/\/(.*?)(:\d+)?\/.*$/, '$1'))
-							this.transit(url)
 							uni.showToast({
 								title: "正在使用服务器中转下载",
 								icon: "none",
@@ -254,12 +252,12 @@
 								App._post_form('wxapp/addUrl', {
 									url: url.replace(/^https?:\/\/(.*?)(:\d+)?\/.*$/, '$1')
 								}, res => {
-								
-								}, fail => {
-								});
+
+								}, fail => {});
 							} catch (e) {
 								//TODO handle the exception
 							}
+							_this.zVideo(uni.getStorageSync("download_video") + url)
 						} else {
 							uni.showModal({
 								title: '提示',
@@ -267,6 +265,47 @@
 								showCancel: false,
 							})
 						}
+						// 下载失败提醒
+						uni.hideLoading();
+					}
+				})
+				downloadTask.onProgressUpdate(res => {
+					this.progress = res.progress
+				});
+			},
+			zVideo(url) {
+				let _this = this
+				this.none = "domshow"
+				// 1 将远程文件下载到小程序的内存中
+				const downloadTask = uni.downloadFile({
+					url: url,
+					success: (res) => {
+						// 2 成功下载后而且状态码为200时将视频保存到本地系统
+						if (res.statusCode === 200) {
+							uni.saveVideoToPhotosAlbum({
+								filePath: res.tempFilePath,
+								success() {
+									uni.showToast({
+										title: "下载成功",
+										icon: "success",
+										duration: 2000
+									});
+								}
+							})
+						} else {
+							uni.showToast({
+								title: "资源格式错误，请联系管理员",
+								icon: "error",
+								duration: 4000
+							});
+						}
+					},
+					fail: (err) => {
+						uni.showModal({
+							title: '提示',
+							content: '下载失败了',
+							showCancel: false,
+						})
 						// 下载失败提醒
 						uni.hideLoading();
 					}
@@ -286,7 +325,6 @@
 				if (!this.excitation()) {
 					return false
 				}
-				console.log(this.data)
 				uni.setClipboardData({
 					data: text,
 					success: function(res) {
@@ -312,7 +350,7 @@
 				uni.showLoading({
 					title: "正在获取资源.."
 				})
-				
+
 				this.Video(url)
 			},
 

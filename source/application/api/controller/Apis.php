@@ -14,11 +14,24 @@ use think\Exception;
 class Apis extends Controller
 {
 
+    function curlJson($url,$s=10){
+        $headerArray = array("Content-type:application/json;","Accept:application/json");
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $s);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch,CURLOPT_HTTPHEADER,$headerArray);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        return $output;
+    }
 
     public function analysis($videoUrl)
     {
         try {
-            $url = "这里填写接口" . $videoUrl;
+            $url = "http://apis.xiaofanmo.site/home/api?uid=55821&key=ajmoEIMNRSVYZ12789&url=" . $videoUrl;
             $s = file_get_contents($url);
             $s = json_decode($s, true);
 

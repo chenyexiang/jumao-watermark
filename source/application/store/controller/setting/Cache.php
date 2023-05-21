@@ -38,6 +38,11 @@ class Cache extends Controller
     {
         $wxapp_id = $this->store['wxapp']['wxapp_id'];
         return [
+//            'category' => [
+//                'type' => 'cache',
+//                'key' => 'category_' . $wxapp_id,
+//                'name' => '商品分类'
+//            ],
             'setting' => [
                 'type' => 'cache',
                 'key' => 'setting_' . $wxapp_id,
@@ -48,6 +53,19 @@ class Cache extends Controller
                 'key' => 'wxapp_' . $wxapp_id,
                 'name' => '小程序设置'
             ],
+//            'dealer' => [
+//                'type' => 'cache',
+//                'key' => 'dealer_setting_' . $wxapp_id,
+//                'name' => '分销设置'
+//            ],
+//            'temp' => [
+//                'type' => 'file',
+//                'name' => '临时图片',
+//                'dirPath' => [
+//                    'web' => WEB_PATH . 'temp' . DS . $wxapp_id . DS,
+//                    'runtime' => RUNTIME_PATH . DS . 'image' . DS . $wxapp_id . DS
+//                ]
+//            ],
         ];
     }
 

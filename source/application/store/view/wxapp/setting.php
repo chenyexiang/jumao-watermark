@@ -28,7 +28,7 @@
                             </div>
 
 
-                            <div class="am-form-group">
+                            <div class="am-form-group" data-x-switch>
                                 <label class="am-u-sm-3 am-form-label form-require">
                                     解析接口
                                 </label>
@@ -36,17 +36,72 @@
                                     <label class="am-radio-inline">
                                         <input type="radio" name="wxapp[is_analysis]" value="0"
                                                data-am-ucheck
+                                               data-switch-box="switch-coupon_type"
+                                               data-switch-item="coupon_type__10"
                                             <?= $wxapp['is_analysis'] == 0 ? 'checked' : '' ?>>
                                         第三方接口
                                     </label>
                                     <label class="am-radio-inline">
                                         <input type="radio" name="wxapp[is_analysis]" value="1"
                                                data-am-ucheck
+                                               data-switch-box="switch-coupon_type"
+                                               data-switch-item="coupon_type__20"
                                             <?= $wxapp['is_analysis'] == 1 ? 'checked' : '' ?>>
-                                        内置接口
+                                        内置接口①(免费)
+                                    </label>
+                                    <label class="am-radio-inline">
+                                        <input type="radio" name="wxapp[is_analysis]" value="2"
+                                               data-am-ucheck
+                                               data-switch-box="switch-coupon_type"
+                                               data-switch-item="coupon_type__30"
+                                            <?= $wxapp['is_analysis'] == 2 ? 'checked' : '' ?>>
+                                        内置接口②(收费)
                                     </label>
                                 </div>
+
                             </div>
+
+                            <div class="am-form-group switch-coupon_type  coupon_type__10 <?= $wxapp['is_analysis'] == 1 ? '' : 'hide' ?>">
+                                <small class="am-u-sm-9 am-margin-top" style="text-align: center">
+                                    使用自定义接口请去修改Apis.php文件</small>
+
+                            </div>
+
+                            <div class="am-form-group switch-coupon_type  coupon_type__30 <?= $wxapp['is_analysis'] == 2 ? '' : 'hide' ?>">
+                                <small class="am-u-sm-9 am-margin-top" style="text-align: center;color: red">
+                                   该接口只支持前期小量调用的时候使用，大量的话请另寻第三方接口</small>
+                            </div>
+
+
+                            <div class="switch-coupon_type coupon_type__30  <?= $wxapp['is_analysis'] == 2 ? '' : 'hide' ?>"
+                            style="margin-top: 30px;margin-bottom: 30px">
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label form-require">
+                                        UID
+                                    </label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" class="tpl-form-input" name="wxapp[uid]"
+                                               value="<?= $wxapp['uid'] ?>" required placeholder="请点击下方按钮注册账号，并填写个人信息页中的UID字段">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label form-require">
+                                        KEY
+                                    </label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" class="tpl-form-input" name="wxapp[key]"
+                                               value="<?= $wxapp['key'] ?>" required  placeholder="请点击下方按钮注册账号，并填写个人信息页中的KEY字段">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3 ">
+                                        <button type="button" onclick='window.open("https://apis.xiaofanmo.site/")' class="am-btn am-btn-secondary">去申请使用</button>
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <div class="am-form-group">
                                 <label class="am-u-sm-3 am-form-label form-require">
@@ -125,6 +180,11 @@
 <script type="text/javascript">
     $(function () {
 
+        var $mySwitch = $('[data-x-switch]');
+        $mySwitch.find('[data-switch-item]').click(function () {
+            var $mySwitchBox = $('.' + $(this).data('switch-box'));
+            $mySwitchBox.hide().filter('.' + $(this).data('switch-item')).show();
+        });
         /**
          * 表单验证提交
          * @type {*}

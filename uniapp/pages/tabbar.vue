@@ -89,6 +89,7 @@
 							uni.setStorageSync("token", res.data.token)
 							uni.setStorageSync("user_id", res.data.user_id)
 						}, fail => {
+							uni.clearStorageSync();
 							console.log("登录失败")
 						});
 					}

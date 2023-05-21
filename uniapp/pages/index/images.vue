@@ -20,7 +20,7 @@
 
 				<view class="cu-bar btn-group margin-top-xl" style="padding: 0rpx 10rpx;">
 					<button class="cu-btn line-orange shadow lg radius" @click="copyText">复制链接</button>
-					<button class="cu-btn bg-gradual-orange shadow lg radius" @click="dow">保存封面</button>
+					<button class="cu-btn bg-gradual-orange shadow lg radius" @click="dow">下载单张</button>
 				</view>
 				<view class="padding flex flex-direction">
 					<button class="cu-btn bg-gradual-orange lg" @click="dows">全部下载</button>

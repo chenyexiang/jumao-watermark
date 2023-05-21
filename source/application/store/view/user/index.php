@@ -36,6 +36,7 @@
                                 <th>用户ID</th>
                                 <th>微信昵称</th>
                                 <th>解析次数</th>
+                                <th>状态</th>
                                 <th>注册时间</th>
                                 <th>操作</th>
                             </tr>
@@ -48,6 +49,15 @@
 
                                     <td class="am-text-middle"><?= $item['nickName'] ?></td>
                                     <td class="am-text-middle"><?= $item['number'] ?></td>
+
+                                    <td class="am-text-middle">
+                                           <span class="j-state am-badge x-cur-p
+                                           am-badge-<?= $item['is_state'] == 0 ? 'success' : 'danger' ?>"
+                                                 data-id="<?= $item['user_id'] ?>"
+                                                 data-state="<?= $item['is_state'] ?>">
+                                               <?= $item['is_state'] == 0 ? '正常' : '禁用' ?>
+                                           </span>
+                                    </td>
                                     <td class="am-text-middle"><?= $item['create_time'] ?></td>
 
                                     <td class="am-text-middle">
@@ -86,7 +96,24 @@
 
 <script>
     $(function () {
-
+        // 用户状态
+        $('.j-state').click(function () {
+            var data = $(this).data();
+            layer.confirm('确定要' + (parseInt(data.state) === 0 ? '禁用' : '恢复') + '该用户使用权限吗？'
+                , {title: '友情提示'}
+                , function (index) {
+                    $.post("<?= url('user/state') ?>"
+                        , {
+                            user_id: data.id,
+                            state: Number(parseInt(data.state))
+                        }
+                        , function (result) {
+                            result.code === 1 ? $.show_success(result.msg, result.url)
+                                : $.show_error(result.msg);
+                        });
+                    layer.close(index);
+                });
+        });
 
         // 删除元素
         var url = "<?= url('user/delete') ?>";

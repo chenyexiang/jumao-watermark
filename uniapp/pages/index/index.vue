@@ -141,9 +141,11 @@
 				App._get('user/setting', {}, res => {
 					var download_video = res.data.wxConfig.download_video;
 					var download_image = res.data.wxConfig.download_image;
-					uni.setStorageSync("download_video",download_video != '' && download_video != null ? download_video :App.download_video_url)
-					uni.setStorageSync("download_image",download_image != '' && download_image != null ? download_image :App.download_image_url)
-					
+					uni.setStorageSync("download_video", download_video != '' && download_video != null ?
+						download_video : App.download_video_url)
+					uni.setStorageSync("download_image", download_image != '' && download_image != null ?
+						download_image : App.download_image_url)
+
 					var setting = res.data
 					var newList = []
 					for (var i = 0; i < setting.bannle.length; i++) {
@@ -155,17 +157,19 @@
 					if (setting.wxConfig.is_ad == '1') {
 						_this.ad_id = setting.wxConfig.ad_video
 					}
-					
+
 					uni.setStorageSync("setting", res.data)
 				});
 			} else {
 				var setting = uni.getStorageSync("setting")
-				
+
 				var download_video = setting.wxConfig.download_video;
 				var download_image = setting.wxConfig.download_image;
-				uni.setStorageSync("download_video",download_video != '' && download_video != null ? download_video :App.download_video_url)
-				uni.setStorageSync("download_image",download_image != '' && download_image != null ? download_image :App.download_image_url)
-				
+				uni.setStorageSync("download_video", download_video != '' && download_video != null ? download_video : App
+					.download_video_url)
+				uni.setStorageSync("download_image", download_image != '' && download_image != null ? download_image : App
+					.download_image_url)
+
 				var newList = []
 				for (var i = 0; i < setting.bannle.length; i++) {
 					newList.push(setting.bannle[i].title)
@@ -185,7 +189,13 @@
 
 
 
-
+			getStrUrl(s) {
+				var reg = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+)/g;
+				var reg = /(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/g;
+				s = s.match(reg);
+				return (s && s.length ? s[0] : null);
+			},
+			
 			getVideo() {
 				let _this = this
 				if (this.video_url == '' || this.video_url == null) {
@@ -196,7 +206,8 @@
 					});
 				} else {
 					// 提取地址链接
-					var getUrl = this.video_url.match(/(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+)/g)
+					var getUrl = this.getStrUrl(this.video_url)
+					
 					if (getUrl == null) {
 						uni.showToast({
 							title: '糟糕！您填写的内容找不到解析地址，无法解析！',
@@ -222,14 +233,7 @@
 							title: "解析成功",
 							icon: "success"
 						});
-
-
-						console.log(res)
-
-						// _this.data.y_url = getUrl
 						_this.video_url = ''
-
-
 						uni.setStorage({
 							key: "videoData",
 							data: res.data,
