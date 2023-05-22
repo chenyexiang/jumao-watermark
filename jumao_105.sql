@@ -39,6 +39,7 @@ CREATE TABLE `yoshop_admin_user` (
 
 LOCK TABLES `yoshop_admin_user` WRITE;
 /*!40000 ALTER TABLE `yoshop_admin_user` DISABLE KEYS */;
+INSERT INTO `yoshop_admin_user` VALUES (10001,'admin','bf2df1b815ce5d541b7cc4309ba146e8',1670852595,1670852595);
 /*!40000 ALTER TABLE `yoshop_admin_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
